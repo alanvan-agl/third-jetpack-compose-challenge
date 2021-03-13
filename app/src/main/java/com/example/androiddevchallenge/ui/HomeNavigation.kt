@@ -12,27 +12,22 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.ui.Destinations.HOME_ROUTE
-import com.example.androiddevchallenge.ui.Destinations.LOGIN_ROUTE
-import com.example.androiddevchallenge.ui.Destinations.WELCOME_ROUTE
+import com.example.androiddevchallenge.ui.MainDestinations.HOME_ROUTE
 import java.util.*
 
-object Destinations {
-    const val WELCOME_ROUTE = "welcome"
-    const val LOGIN_ROUTE = "login"
+object MainDestinations {
     const val HOME_ROUTE = "home"
     const val PROFILE_ROUTE = "profile"
 }
 
 @Composable
-fun Navigation(darkTheme: Boolean, navController: NavHostController) {
-    val actions = remember(navController) { NavigationActions(navController) }
+fun HomeNavigation(navController: NavHostController) {
     Scaffold(
         bottomBar = {
             BottomNavigation {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
-                listOf(HOME_ROUTE, Destinations.PROFILE_ROUTE).forEach { route ->
+                listOf(HOME_ROUTE, MainDestinations.PROFILE_ROUTE).forEach { route ->
                     BottomNavigationItem(
                         icon = {
                             if (route == HOME_ROUTE) {
@@ -63,19 +58,9 @@ fun Navigation(darkTheme: Boolean, navController: NavHostController) {
         }
     ) {
         NavHost(navController = navController, startDestination = HOME_ROUTE) {
-            composable(WELCOME_ROUTE) {
-                WelcomeScreen(darkTheme, actions)
-            }
-            composable(LOGIN_ROUTE) {
-                LoginScreen(darkTheme, actions)
-            }
             composable(HOME_ROUTE) {
-                HomeScreen(darkTheme, actions)
+                HomeScreen()
             }
         }
     }
-}
-
-class NavigationActions(navController: NavController) {
-
 }

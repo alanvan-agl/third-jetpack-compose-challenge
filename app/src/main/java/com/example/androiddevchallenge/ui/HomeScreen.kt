@@ -7,6 +7,6 @@ import androidx.compose.ui.res.stringResource
 import com.example.androiddevchallenge.R
 
 @Composable
-fun LoginScreen(darkTheme: Boolean) {
+fun HomeScreen() {
 
 }

@@ -12,70 +12,43 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import com.example.androiddevchallenge.R
-import com.example.androiddevchallenge.ui.Destinations.HOME_ROUTE
-import com.example.androiddevchallenge.ui.Destinations.LOGIN_ROUTE
-import com.example.androiddevchallenge.ui.Destinations.WELCOME_ROUTE
+import com.example.androiddevchallenge.ui.AppDestinations.HOME_NAVIGATION_ROUTE
+import com.example.androiddevchallenge.ui.AppDestinations.LOGIN_ROUTE
+import com.example.androiddevchallenge.ui.AppDestinations.WELCOME_ROUTE
+import com.example.androiddevchallenge.ui.MainDestinations.HOME_ROUTE
 import java.util.*
 
-object Destinations {
+object AppDestinations {
     const val WELCOME_ROUTE = "welcome"
     const val LOGIN_ROUTE = "login"
-    const val HOME_ROUTE = "home"
-    const val PROFILE_ROUTE = "profile"
+    const val HOME_NAVIGATION_ROUTE = "home_navigation"
 }
 
 @Composable
-fun Navigation(darkTheme: Boolean, navController: NavHostController) {
+fun WelcomeNavigation() {
+    val navController = rememberNavController()
     val actions = remember(navController) { NavigationActions(navController) }
-    Scaffold(
-        bottomBar = {
-            BottomNavigation {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
-                listOf(HOME_ROUTE, Destinations.PROFILE_ROUTE).forEach { route ->
-                    BottomNavigationItem(
-                        icon = {
-                            if (route == HOME_ROUTE) {
-                                Icon(Icons.Filled.Search, stringResource(R.string.search_icon))
-                            } else Icon(
-                                Icons.Filled.AccountCircle,
-                                stringResource(R.string.account_circle)
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = stringResource(R.string.home).toUpperCase(Locale.ENGLISH),
-                                style = MaterialTheme.typography.caption
-                            )
-                        },
-                        selected = currentRoute == route,
-                        onClick = {
-                            if (route == HOME_ROUTE) {
-                                navController.navigate(route) {
-                                    popUpTo = navController.graph.startDestination
-                                    launchSingleTop = true
-                                }
-                            }
-                        }
-                    )
-                }
-            }
+    NavHost(navController = navController, startDestination = WELCOME_ROUTE) {
+        composable(WELCOME_ROUTE) {
+            WelcomeScreen(actions)
         }
-    ) {
-        NavHost(navController = navController, startDestination = HOME_ROUTE) {
-            composable(WELCOME_ROUTE) {
-                WelcomeScreen(darkTheme, actions)
-            }
-            composable(LOGIN_ROUTE) {
-                LoginScreen(darkTheme, actions)
-            }
-            composable(HOME_ROUTE) {
-                HomeScreen(darkTheme, actions)
-            }
+        composable(LOGIN_ROUTE) {
+            LoginScreen(actions)
+        }
+        composable(HOME_NAVIGATION_ROUTE) {
+            HomeNavigation(navController)
         }
     }
 }
 
 class NavigationActions(navController: NavController) {
-
+    val upPress: () -> Unit = {
+        navController.navigateUp()
+    }
+    val navigateToLoginScreen: () -> Unit = {
+        navController.navigate(LOGIN_ROUTE)
+    }
+    val navigateToHome: () -> Unit = {
+        navController.navigate(HOME_NAVIGATION_ROUTE)
+    }
 }
