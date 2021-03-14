@@ -19,22 +19,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import com.example.androiddevchallenge.ui.HomeNavigation
-import com.example.androiddevchallenge.ui.WelcomeNavigation
+import com.example.androiddevchallenge.di.SingletonInjector
+import com.example.androiddevchallenge.ui.NavContainer
 import com.example.androiddevchallenge.ui.theme.AppTheme
 
 class MainActivity : AppCompatActivity() {
+    private val singletonInjector = SingletonInjector()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setContent {
             AppTheme() {
-                MyApp()
+                MyApp(singletonInjector)
             }
         }
     }
@@ -42,8 +43,8 @@ class MainActivity : AppCompatActivity() {
 
 // Start building your app here!
 @Composable
-fun MyApp() {
+fun MyApp(singletonInjector: SingletonInjector) {
     Surface(color = MaterialTheme.colors.background) {
-        WelcomeNavigation()
+        NavContainer(singletonInjector)
     }
 }

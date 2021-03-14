@@ -12,8 +12,24 @@
     <string name="app_name">AndroidDevChallenge</string>
     <string name="welcome_leaf_picture">Welcome leaf picture</string>
     <string name="search_icon">search icon</string>
+    <string name="spa_icon">spa icon</string>
+    <string name="account_icon">account icon</string>
     <string name="home">Home</string>
     <string name="account_circle">account circle</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
+    <string name="login_screen_background_description">login screen background</string>
+    <string name="welcome_screen_background_description">welcome screen background</string>
+    <string name="logo_description">logo</string>
+    <string name="log_in">Log in</string>
+    <string name="email_hint">Email address</string>
+    <string name="password_hint">Password</string>
+    <string name="profile">Profile</string>
+    <string name="play_button">play button</string>
+    <string name="search">Search</string>
+    <string name="dont_have_an_account">Don\'t have an account?\u0020</string>
+    <string name="sign_up_text">Sign up</string>
+    <string name="favorite_collections">Favorite collections</string>
+    <string name="align_your_body">Align your body</string>
+    <string name="align_your_mind">Align your mind</string>
 </resources>
